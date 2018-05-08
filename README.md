@@ -15,7 +15,7 @@ Support **challenge only through webroot**.
 
 ## Requirements
 
-- PHP 5.3 and up
+- PHP 7.0 and up
 - OpenSSL extension
 - Curl extension
 

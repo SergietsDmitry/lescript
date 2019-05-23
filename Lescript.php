@@ -147,6 +147,8 @@ class Lescript
                     "keyAuthorization" => $payload,
                     "token" => $challenge['token']
                 ]);
+                
+            $check_time = 0;
 
             // waiting loop
             do
@@ -155,13 +157,16 @@ class Lescript
                 {
                     throw new \RuntimeException("Verification ended with error: " . json_encode($result));
                 }
-                $ended = !($result['status'] === "pending");
+                
+                $ended = ($result['status'] !== "pending" || $check_time >= 10);
 
                 if (!$ended)
                 {
                     $this->log("Verification pending, sleeping 1s");
                     sleep(1);
                 }
+                
+                $check_time++;
 
                 $result = $this->client->get($location);
             }
